@@ -25,64 +25,72 @@ At the start of the game a welcome message and button is displayed, when the use
 
 <summary>initializeGame()</summary>
 
-    * Displays a welcome message
+* Displays a welcome message
 
-    * Start Button
-        * executes loadQuestion() on click
+* Start Button
+    * executes loadQuestion() on click
 
 </details>
     
-* loadQuestion()
+<details>
+<summary>loadQuestion()</summary>
 
-    * Empties game div
+* Empties game div
 
-    * Captures current question 
-        * Use array.pop() 
-        * Store return value in var q
+* Captures current question 
+    * Use array.pop() 
+    * Store return value in var q
 
-    * Create timer element
-        * Add classes
-        * Add content
-        * Append to game
+* Create timer element
+    * Add classes
+    * Add content
+    * Append to game
+
+* Create question element
+    * Add classes
+    * Add content
+    * Append to game
+
+* Create answer element
+    * Add classes
+    * Add content
+    * Append to game
+
+* Create final answer button
+    * Add classes
+    * Add content
+    * Append to game       
+</details>
+
+<details>
+<summary>timer()</summary>
+
+* set counter to 0
+* setInterval: 1sec
+    * counter++
     
-    * Create question element
-        * Add classes
-        * Add content
-        * Append to game
+* setTimeout: 10sec
+    * empty game div
+    * if (!answer)
+        * display message "too bad, next question"
+        * else display if answer is correct or not
+    * setTimeout: 3 sec
+        * empty div
+</details>
 
-    * Create answer element
-        * Add classes
-        * Add content
-        * Append to game
+<details>
+<summary>checkAnswer()</summary>
 
-    * Create final answer button
-        * Add classes
-        * Add content
-        * Append to game
-        
-
-* timer()
-    * set counter to 0
-    * setInterval: 1sec
-        * counter++
-        
-    *setTimeout: 10sec
-        * empty game div
-        * if (!answer)
-            * display message "too bad, next question"
-            * else display if answer is correct or not
-        * setTimeout: 3 sec
-            * empty div
-
-* checkAnswer()
-    * Final answer .on('click')
-        * capture selected answer
-        * empty game div
-    * if (question is correct)
-        * Display correct message 
-            * increment correct
-        * else display incorrect message
-            * increment incorrect
+* Final answer .on('click')
+    * capture selected answer
+    * empty game div
+    
+* if (question is correct)
+    * Display correct message 
+        * increment correct
+    * else display incorrect message
+        * increment incorrect
+</details>
 
     
 
