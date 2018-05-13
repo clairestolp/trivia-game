@@ -17,16 +17,20 @@ A fast paced trivia game
 * On the final screen, show the number of correct answers, incorrect answers, and an option to restart the game (without reloading the page).
 
 ## Approach
-    At the start of the game a welcome message and button is displayed, when the user clicks the button the first question is loaded. Then while there are still values in the Questions array, loadQuestion and timer will be executed. Once there are no more questions remaining the user's results will be displayed and a button will appear to try again.
+At the start of the game a welcome message and button is displayed, when the user clicks the button the first question is loaded. Then while there are still values in the Questions array, loadQuestion and timer will be executed. Once there are no more questions remaining the user's results will be displayed and a button will appear to try again.
 
 ### Functions
 
-* initializeGame()
+<details>
+
+<summary>initializeGame()</summary>
 
     * Displays a welcome message
 
     * Start Button
         * executes loadQuestion() on click
+
+</details>
     
 * loadQuestion()
 
