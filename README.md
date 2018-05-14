@@ -3,6 +3,13 @@ A fast paced trivia game
 
 ## Assignment Description
 
+### Objectives
+* Use setTimeout(), clearTimeout, and setInterval() and jQuery to create a dynamic Trivia game
+
+### Frameworks used
+* Bootstrap
+* Jquery
+
 ### Option Two: Advanced Assignment (Timed Questions)
 
 * You'll create a trivia game that shows only one question until the player answers it or their time runs out.
@@ -26,7 +33,6 @@ At the start of the game a welcome message and button is displayed, when the use
 <summary>initializeGame()</summary>
 
 * Displays a welcome message
-
 * Start Button
     * executes loadQuestion() on click
 
@@ -36,26 +42,21 @@ At the start of the game a welcome message and button is displayed, when the use
 <summary>loadQuestion()</summary>
 
 * Empties game div
-
 * Captures current question 
     * Use array.pop() 
     * Store return value in var q
-
 * Create timer element
     * Add classes
     * Add content
     * Append to game
-
 * Create question element
     * Add classes
     * Add content
     * Append to game
-
 * Create answer element
     * Add classes
     * Add content
     * Append to game
-
 * Create final answer button
     * Add classes
     * Add content
@@ -67,8 +68,7 @@ At the start of the game a welcome message and button is displayed, when the use
 
 * set counter to 0
 * setInterval: 1sec
-    * counter++
-    
+    * counter+    
 * setTimeout: 10sec
     * empty game div
     * if (!answer)
@@ -84,7 +84,6 @@ At the start of the game a welcome message and button is displayed, when the use
 * Final answer .on('click')
     * capture selected answer
     * empty game div
-    
 * if (question is correct)
     * Display correct message 
         * increment correct
@@ -92,6 +91,15 @@ At the start of the game a welcome message and button is displayed, when the use
         * increment incorrect
 </details>
 
-    
+<details>
+<summary>endGame()</summary>
+
+* if (q.length === 0)
+    * game over
+    * display number of correct answers
+    * display number of incorrect answers
+    * display % correct
+
+</details>
 
 
