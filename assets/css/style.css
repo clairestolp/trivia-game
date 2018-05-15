@@ -1,0 +1,31 @@
+html, body {
+    height: 100%;
+    background: url('../images/blank-coffee-cup-164642.jpg');
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position-y: -150px;
+}
+
+h1, h2, h3, h4, h5, h6{
+    color: #3a3d41;
+}
+
+#paper{
+    position: fixed;
+    top: 100px;
+    width: 64%;
+    left: 15%;
+    height: 100%;
+}
+
+#title{
+    margin: 20px;
+}
+
+.choice-text{
+    margin: 10px;
+}
+
+.graphite {
+    color: #3a3d41;
+}
