@@ -12,19 +12,52 @@ h1, h2, h3, h4, h5, h6{
 
 #paper{
     position: fixed;
+    padding: 30px;
     top: 100px;
     width: 64%;
     left: 15%;
     height: 100%;
 }
 
-#title{
-    margin: 20px;
-}
-
 .radio-text{
     margin: 10px;
 }
+
+.centered{
+    display: flex;
+    justify-content: center;
+}
+/*---Custom Radio Button--*/
+/*
+.wrapper{
+    display: block;
+    position: relative;
+    cursor: pointer;
+    font-size: 1.3em;
+    user-select: none;
+    padding-left: 10px;
+}
+
+.wrapper input{
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.radio{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    background-color: blue;
+}
+
+.wrapper:hover ~ .radio {
+    background-color: green;
+}
+*/
 
 .graphite {
     color: #3a3d41;
@@ -37,6 +70,29 @@ h1, h2, h3, h4, h5, h6{
     margin: -150px auto auto -300px;
     top: 50%;
     left: 50%;
+}
+
+#submit{
+    background-color: rgba(0,0,0,0);
+    position: relative;
+    color: white;
+}
+
+#submit:after{
+    content: '';
+    width: inherit;
+    height: inherit;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    left: 0px;
+    bottom: 0px;
+    border-radius: .25rem;
+    z-index: -2;
+    animation-name: gradient;
+    animation-duration: 30s;
+    animation-fill-mode: both;
+
 }
 
 

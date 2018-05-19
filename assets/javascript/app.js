@@ -2,7 +2,7 @@
 ////question contains string
 ////choices is an array of answer choices
 ////answer is the index of the correct answer
-var questions = [
+const questions = [
     {
         question: 'Find a 10-digit number where the first digit is how many zeros in the number, the second digit is how many 1s in the number etc. until the tenth digit which is how many 9s in the number.',
         choices: ['6210001000', '4570006300', '0087032210', '0001652010'],
@@ -30,17 +30,32 @@ var questions = [
     }
 ];
 
+const game = $('#game');
+var unanswered = [];
 var q = undefined;
 var answered = 0;
 var correct = 0;
 var incorrect = 0;
 var completed = false;
 var answer = undefined;
-var game = $('#game');
+
+
+function reset () {
+    questions.forEach((q) => {
+        unanswered.push(q);
+    });
+    q = undefined;
+    answered = 0;
+    correct = 0;
+    incorrect = 0;
+    completed = false;
+    answer = undefined;
+}
 
 //displays beginning game message 
 //adds a button that starts the game
 function initializeGame () {
+    reset();
     var prompt = $('<div>');
     var message = $('<h3>');
     var button = $('<button>');
@@ -83,28 +98,36 @@ function loadQuestion (timer) {
     game
         .empty()
         .addClass('flex-column');
-    q = questions.pop();
+    q = unanswered.pop();
 
     timer   
-        .addClass('display-4 text-center mb-4')
+        .addClass('display-4 text-center mb-2')
         .attr('id', 'timer')
-        .html('00:10');
+        .html('00:30');
     question
-        .addClass('text-center m-4')
+        .addClass('text-center m-2')
         .html(`<h3>${q.question}</h3>`);
     choices
-        .addClass('text-center')
+        .addClass('centered')
+    //each radio should be nested within a <label> containing the text
+    //followed by the <input> 
+    //followed by an empty <span> with the class of .radio
         .html(`
             <form>
-            <input type="radio" name="choice" value="0"><span class="radio-text">${q.choices[0]}</span><br>
-            <input type="radio" name="choice" value="1"><span class="radio-text">${q.choices[1]}</span><br>
-            <input type="radio" name="choice" value="2"><span class="radio-text">${q.choices[2]}</span><br>
-            <input type="radio" name="choice" value="3"><span class="radio-text">${q.choices[3]}</span><br>
+                <label class="wrapper"><input type="radio" name="choice" value="0"> ${q.choices[0]}  
+                </label><br>
+                <label class="wrapper"><input type="radio" name="choice" value="0"> ${q.choices[1]}
+                </label><br>
+                <label class="wrapper"><input type="radio" name="choice" value="0"> ${q.choices[2]}   
+                </label><br>
+                <label class="wrapper"><input type="radio" name="choice" value="0"> ${q.choices[3]}   
+                </label>
             </form>
             `);
+
     submit
         .attr('id', 'submit')
-        .addClass('btn btn-lg btn-primary m-4')
+        .addClass('btn btn-lg m-4 sweep-to-right')
         .css('width', '200px')
         .text('Final Answer?');
 
@@ -133,7 +156,11 @@ function timer () {
         }
         counter--;
         //fix the timer for 30 seconds
-        $('#timer').html('00:0' + counter);
+        if (counter >= 10){
+            $('#timer').html('00:' + counter);
+        } else{
+            $('#timer').html('00:0' + counter); 
+        }
     }, 1000);
 
     timeout = setTimeout(() => {
@@ -169,14 +196,14 @@ function checkAnswer() {
         
     console.log(`user answer: ${answer}, correct answer: ${q.answer}`);
 
-    var alert = $('<div>');
     var result = $('<h2>');
     var correctAnswer = $('<div>');
     var score = $('<div>');
-
+    var container = $('<div>');
     $('#game').empty();
-    alert.addClass('alert');
-    
+
+    container   
+        .css('margin', '50px');
     
     correctAnswer
         .addClass('text-center p-4')
@@ -187,7 +214,7 @@ function checkAnswer() {
         incorrect++;
         result
             .html('Incorrect...Too slow!')
-        alert
+        game
             .append(result)
             .append(correctAnswer);
     }else if(answer === q.answer){
@@ -195,7 +222,7 @@ function checkAnswer() {
         answered++;
         result
             .html('That was correct...lucky guess!')
-        alert
+        game
             .append(result)
             .append(correctAnswer);
 
@@ -204,55 +231,70 @@ function checkAnswer() {
         answered++;
         result
             .html('HA! Incorrect...I guess you don\'t know everything after all!')
-        alert
+        game
             .append(result)
             .append(correctAnswer);
     }
-    game.append(alert);
-    console.log(questions);
-    console.log('questions remaining: ', questions.length);
+    console.log(unanswered);
+    console.log('questions remaining: ', unanswered.length);
     
     setTimeout(() => {
-        if(questions.length === 0){
-            alert.empty();
-            alert.append('<h1>Game Over!</h1>');
+        if(unanswered.length === 0){
+            game.empty();
             results();
         }else{
             loadQuestion(timer());
             submitAnswer();
         }
     }, 2000);
+}
 
-    //calculates results and appends at gameover
-    //display answered
-    //display correct
-    //display incorrect
-    //display percentage
-    function results() {
-        var percent = (correct/5) * 100;
-        var answeredDiv = $('<div>');
-        var correctDiv = $('<div>');
-        var incorrectDiv = $('<div>');
-        var percentDiv = $('<div>');
+//calculates results and appends at gameover
+//display answered
+//display correct
+//display incorrect
+//display percentage
+function results() {
+    var header = $('<h1>');
+    var percent = (correct/5) * 100;
+    var results = $('<div>');
+    var wrapper = $('<div>');
+    var resetButton = $('<button>');
+    var container = $('<div>');
 
-        answeredDiv
-            .append(answered);
-        correctDiv
-            .append(correct);
+    container   
+        .css('margin', '50px');
 
-        incorrectDiv
-            .append(incorrect);
+    header  
+        .addClass('text-center')
+        .text('Game Over!');
 
-        percentDiv
-            .append(percent + '%');
+    results
+        .append(`<p>Questions answered: ${answered}</p>`)            
+        .append(`<p>Correct: ${correct}</p>`)
+        .append(`<p>Incorect: ${incorrect}</p>`)           
+        .append(`<p>Score: ${percent}%</p>`);
 
-        alert
-            .append(answeredDiv)
-            .append(correctDiv)
-            .append(incorrectDiv)
-            .append(percentDiv);
 
-    }
+    resetButton        
+        .text('Play Again')
+        .addClass('btn btn-primary btn-lg float-right');
+
+    resetButton.on('click', function(){
+        game.empty();
+        reset();
+        initializeGame();
+    });
+
+    container
+        .append(header)
+        .append(results)
+        .append(resetButton);
+
+    game
+        .addClass('centered')
+        .append(container);
+
 }
 
  initializeGame();
